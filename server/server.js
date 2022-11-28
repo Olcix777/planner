@@ -8,7 +8,7 @@ app.use(cors());
 
 app.use(express.json());
 
-const mongoUrl =  "mongodb+srv://user:''@cluster0.dfi875d.mongodb.net/?retryWrites=true&w=majority"
+const mongoUrl =  ""
 
 const JWT_SECRET = "123123123012405430"
 mongoose
