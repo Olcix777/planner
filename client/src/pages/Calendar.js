@@ -1,18 +1,42 @@
-import React, { Component, useState,useContext,useEffect } from "react";
+import React, { useState,useContext,useEffect } from "react";
 import {getMonth} from "../utility/getMonth"
 import Month from "../components/Month"
 import CalendarHeader from "../components/CalendarHeader"
 import GlobalContext from "../context/GlobalContext";
 
+
+
+
+
+
 export default function Calendar(){
   const [currenMonth, setCurrentMonth] = useState(getMonth());
   const { monthIndex } = useContext(GlobalContext);
+  const [events, setEvents] = useState('')
+  const [nick, setName] = useState('')
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+  let [StartDate, setStartDate] = useState();
+  let [EndDate, setEndDate] = useState();
+  const [title, setTitle] = useState('')
+  const [descryption, setDescryption] = useState('')
 
-  useEffect(() => {
-    setCurrentMonth(getMonth(monthIndex));
-  }, [monthIndex]);
-
+  
     
+  
+  
+
+
+  
+
+ 
+ 
+ 
+ 
+ 
+
+
+
     return (
       
         <>
@@ -20,14 +44,14 @@ export default function Calendar(){
             <div className="h-5/6 flex flex-columns">
               <Month month={currenMonth}/>
             </div>
-
-
+          <h1>{title} i chuk</h1>
         </>
            )
 
 }
 
-/*
+
+/*c
 import React, { Component, useState,useContext } from "react";
 import {getMonth} from "../utility/getMonth"
 import Month from "../components/Month"
@@ -82,6 +106,4 @@ export default class Calendar extends Component {
         </>
            )
 }
-}
-
-*/
+}*/

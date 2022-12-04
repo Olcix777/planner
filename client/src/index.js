@@ -8,7 +8,6 @@ import ContextWrapper from './context/ContextWrapper';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
 
     <BrowserRouter>
     <ContextWrapper>
@@ -16,7 +15,6 @@ root.render(
     </ContextWrapper>
     </BrowserRouter>
     
-  </React.StrictMode>
 );
 
 

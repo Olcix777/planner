@@ -1,5 +1,4 @@
 
-import "../index.css"
 import car from "../img/car.png"
 import { Link } from "react-router-dom"
 import  { Nav }   from "../components/Nav"

@@ -45,36 +45,68 @@ app.post("/register", async (req, res) => {
 });
 
 
-app.post("/login", async (req,res)=> {
-    const {email, password } = req.body;
+app.post('/login', async (req, res) => {
+	const user = await User.findOne({
+		email: req.body.email,
+	})
 
-    const user = await User.findOne({ email });
-    if(!user) {
-        return res.json({error: "User Not found"})
-    }
-    if (await bcrypt.compare(password, user.password)) {
-        const token = jwt.sign({email:user.email}, JWT_SECRET);
-        if (res.status(201)) {
-            return res.json({ status: "ok", data: token})
+	if (!user) {
+		return { status: 'error', error: 'Invalid login' }
+	}
 
-        }else {
-            return res.json({error: "no"})
-            
-        }
-        }
-        res.json({status: "no", error: "Wrong Password"})
+	const isPasswordValid = await bcrypt.compare(
+		req.body.password,
+		user.password
+	)
+
+	if (isPasswordValid) {
+		const token = jwt.sign(
+			{
+				name: user.name,
+				email: user.email,
+			},
+			'secret123'
+		)
+
+		return res.json({ status: 'ok', user: token })
+	} else {
+		return res.json({ status: 'error', user: false })
+	}
 })
 
 app.post("/userinfo", async (req,res) => {
-    const { token } = req.body;
+    const { email } = req.body;
     try {
-       const user=jwt.verify(token,JWT_SECRET);
-        const useremail= user.email;
-        User.findOne({email: useremail}).then((data) => {
+        User.findOne({email: email}).then((data) => {
             res.send({ status: "ok", data: data})
+            console.log("działa")
         })
         .catch((error) => {
             res.send({status: "error", data: error})
+            console.log("nie")
+        })
+    } catch (error) {
+        
+    }
+})
+
+
+app.post("/event", async (req,res) => {
+    const { email, title, descryption, StartDate, EndDate } = req.body;
+    try {
+        
+       
+    
+
+        User.findOne({email: email}).then(async (data) => {
+            await  User.updateOne({email: email}, { $push: { events: { title, descryption, StartDate, EndDate}} })
+    
+            res.send({ status: "ok", data: data})
+            console.log("działa")
+        })
+        .catch((error) => {
+            res.send({status: "error", data: error})
+            console.log("niedziała")
         })
     } catch (error) {
         
